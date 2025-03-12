@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Law Detector</string>
+    <string name="title_activity_history_page">HistoryPage</string>
+    <string name="title_activity_result_page">ResultPage</string>
+</resources>
