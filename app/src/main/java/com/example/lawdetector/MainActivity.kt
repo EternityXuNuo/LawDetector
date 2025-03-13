@@ -57,13 +57,6 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import com.example.lawdetector.ui.theme.LawDetectorTheme
 
-//val primary = Color(0xFF3f4e91)
-//val secondary = Color(0xff5b6593)
-//val secondaryContainer = Color(0xFFc8cde3)
-//val onPrimary = Color(0xFFffffff)
-//val primaryContainer = Color(0xFF9ba8e5)
-//val onPrimaryContainer = Color(0xff1d2653)
-
 class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)

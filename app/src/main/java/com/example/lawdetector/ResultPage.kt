@@ -104,7 +104,7 @@ fun ResultList(modifier: Modifier){
                     "用户需接受实名信息核验与共享\n" +
                     "腾讯有权将用户实名信息提交至国家防沉迷系统验证，并可能要求额外敏感信息（如人脸识别）进行比对，拒绝提供将限制服务使用。",
             infoC = "强制接受广告与推广信息\n" +
-                    "用户需同意接收腾讯发送的商业广告，且无法主动关闭此类信息推送711。\n" +
+                    "用户需同意接收腾讯发送的商业广告，且无法主动关闭此类信息推送。\n" +
                     "\n" +
                     "免责条款覆盖广泛情形\n" +
                     "腾讯对因不可抗力（如网络故障、病毒攻击）、用户操作不当或第三方原因导致的服务中断免责，用户需自行承担风险。",
@@ -189,27 +189,5 @@ fun ResultCard(icon: Painter, name: String, time: String, model: String, infoA:S
                 )
             }
         }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
-@Composable
-fun MyView(){
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        "检测结果",
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
-            )
-        }
-    ) { innerPadding ->
-        ResultList(Modifier.padding(innerPadding))
     }
 }
