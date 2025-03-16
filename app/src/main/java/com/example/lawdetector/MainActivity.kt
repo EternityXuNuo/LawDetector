@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,11 +36,17 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -81,14 +88,29 @@ class MainActivity : ComponentActivity() {
                     bottomBar = {
                         BottomAppBar(
                             content = {
+                                val context = LocalContext.current
                                 Row(
                                     modifier = Modifier.fillMaxSize(),
                                     horizontalArrangement = Arrangement.SpaceEvenly,
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    MyIconButton(onClick = {}, icon = MyIcon.Dashboard, text = "首页")
-                                    MyIconButton(onClick = {}, icon = MyIcon.History, text = "历史")
-                                    MyIconButton(onClick = {}, icon = MyIcon.Person, text = "我的")
+                                    MyIconButton(checked = true,onCheckedChange = {}, icon = MyIcon.Dashboard, text = "首页")
+                                    MyIconButton(
+                                        checked = false,
+                                        onCheckedChange = {
+
+                                        },
+                                        icon = MyIcon.History,
+                                        text = "历史"
+                                    )
+                                    MyIconButton(checked = false,
+                                        onCheckedChange = {
+                                        val intent = Intent(context, UserPage::class.java)
+                                        context.startActivity(intent)
+                                        },
+                                        icon = MyIcon.Person,
+                                        text = "我的"
+                                    )
                                 }
                             }
                         )
@@ -106,7 +128,8 @@ class MainActivity : ComponentActivity() {
 val MyIcon = Icons.Filled
 
 @Composable
-fun MyIconButton(onClick: () -> Unit,
+fun MyIconButton(checked: Boolean,
+                 onCheckedChange: (Boolean) -> Unit,
                  icon: ImageVector,
                  text: String
                  ){
@@ -114,8 +137,9 @@ fun MyIconButton(onClick: () -> Unit,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement =Arrangement.Center
     ) {
-        IconButton(
-            onClick = onClick,
+        IconToggleButton(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
             content = {
                 Icon(
                     icon,
@@ -235,6 +259,8 @@ fun SecondCard(modifier: Modifier){
 
 @Composable
 fun ModelChangeCard(modifier: Modifier){
+    var model by remember { mutableStateOf("ds") }
+
     OutlinedCard(
         modifier = modifier,
         onClick = {}
@@ -261,8 +287,10 @@ fun ModelChangeCard(modifier: Modifier){
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
-                    selected = true,
-                    onClick = {}
+                    selected = (model == "ds"),
+                    onClick = {
+                        model = "ds"
+                    }
                 )
                 Text(
                     text = "DeepSeek-R1"
@@ -272,8 +300,10 @@ fun ModelChangeCard(modifier: Modifier){
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
-                    selected = false,
-                    onClick = {}
+                    selected = (model == "qw"),
+                    onClick = {
+                        model = "qw"
+                    }
                 )
                 Text(
                     text = "通义千问"
@@ -283,8 +313,10 @@ fun ModelChangeCard(modifier: Modifier){
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
-                    selected = false,
-                    onClick = {}
+                    selected = (model == "ra"),
+                    onClick = {
+                        model = "ra"
+                    }
                 )
 
                 val rainbowColors = listOf(
